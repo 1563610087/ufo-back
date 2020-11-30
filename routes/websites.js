@@ -13,30 +13,31 @@ router.get('/allSites', function (req, res, next) {
   const result = allSites()
   result.then((data) => {
 
-    // const obj = JSON.parse(JSON.stringify(data))
+    const obj = JSON.parse(JSON.stringify(data))
 
-    // let [obj1, obj2, obj3] = obj
-    // obj2.forEach((item) => {
-    //   item.list = []
-    //   obj3.forEach((data) => {
-    //     if (item.website_id === data.website_id) {
-    //       item.list.push(data)
-    //     }
-    //   })
-    // })
-    // obj1.forEach((item) => {
-    //   item.list = []
-    //   obj2.forEach((data) => {
-    //     if (item.classify_id === data.classify_id) {
-    //       item.list.push(data)
-    //     }
-    //   })
-    // })
-    // return res.send(new SuccessModel(obj1))
-    return res.send("hah")
+    let [obj1, obj2, obj3] = obj
+    obj2.forEach((item) => {
+      item.list = []
+      obj3.forEach((data) => {
+        if (item.website_id === data.website_id) {
+          item.list.push(data)
+        }
+      })
+    })
+    obj1.forEach((item) => {
+      item.list = []
+      obj2.forEach((data) => {
+        if (item.classify_id === data.classify_id) {
+          item.list.push(data)
+        }
+      })
+    })
+    return res.send(new SuccessModel(obj1))
+    // return res.send("hah")
 
   })
 });
+
 
 router.post('/addClass', function (req, res, next) {
   const classifyName = req.body.classifyName
