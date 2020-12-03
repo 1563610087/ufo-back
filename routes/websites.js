@@ -33,11 +33,52 @@ router.get('/allSites', function (req, res, next) {
       })
     })
     return res.send(new SuccessModel(obj1))
-    // return res.send("hah")
 
   })
 });
 
+//获取网站数据
+router.post('/allSites', function (req, res, next) {
+  const classifyId = req.body.classifyId
+  const classifyType = req.body.classifyType
+  const result = allSites()
+  result.then((data) => {
+
+    const obj = JSON.parse(JSON.stringify(data))
+
+    let [obj1, obj2, obj3] = obj
+    obj2.forEach((item) => {
+      item.list = []
+      obj3.forEach((data) => {
+        if (item.website_id === data.website_id) {
+          item.list.push(data)
+        }
+      })
+    })
+    obj1.forEach((item) => {
+      item.list = []
+      obj2.forEach((data) => {
+        if (item.classify_id === data.classify_id) {
+          item.list.push(data)
+        }
+      })
+    })
+    //return res.send(new SuccessModel(obj1))
+    if (classifyType === "0") {
+      return res.send(new SuccessModel(obj1))
+    } else if (classifyType === "1") {
+      obj1.find(item => {
+        item.classify_id = classifyId
+        return res.send(new SuccessModel(item))
+      });
+    } else if (classifyType === "2") {
+      obj2.find(item => {
+        item.classify_id = classifyId
+        return res.send(new SuccessModel(item))
+      });
+    }
+  })
+});
 
 router.post('/addClass', function (req, res, next) {
   const classifyName = req.body.classifyName
