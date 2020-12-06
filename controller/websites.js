@@ -79,8 +79,8 @@ const updateWeb = (webName, websiteId) => {
 }
 
 //添加网站
-const addSite = (siteName, siteUrl, websiteId) => {
-    var sql = `insert into website_3 (site_name,site_url,website_id) values ('${siteName}','${siteUrl}','${websiteId}')`
+const addSite = (siteName, siteUrl, websiteId,siteDescribe) => {
+    var sql = `insert into website_3 (site_name,site_url,website_id,site_describe) values ('${siteName}','${siteUrl}','${websiteId}','${siteDescribe}')`
 
     return exec(sql).then((data) => {
         if (data.affectedRows > 0) {
@@ -99,8 +99,9 @@ const delSite = (siteId) => {
         return false
     })
 }
-const updateSite = (siteId, siteName, siteUrl) => {
-    var sql = `update website_3 set site_name='${siteName}', site_url='${siteUrl}'where site_id=${siteId}`
+//更新网站
+const updateSite = (siteId, siteName, siteUrl,siteDescribe) => {
+    var sql = `update website_3 set site_name='${siteName}', site_url='${siteUrl}', site_describe='${siteDescribe}'where site_id=${siteId}`
     return exec(sql).then((data) => {
         if (data.affectedRows > 0) {
             return true

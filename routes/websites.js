@@ -68,14 +68,18 @@ router.post('/allSites', function (req, res, next) {
       return res.send(new SuccessModel(obj1))
     } else if (classifyType === "1") {
       obj1.find(item => {
-        item.classify_id = classifyId
-        return res.send(new SuccessModel(item))
+        if(item.classify_id == classifyId){
+          return res.send(new SuccessModel(item))
+        }
       });
     } else if (classifyType === "2") {
       obj2.find(item => {
-        item.classify_id = classifyId
-        return res.send(new SuccessModel(item))
+        if(item.classify_id == classifyId){
+          return res.send(new SuccessModel(item))
+        }
       });
+    }else {
+      res.json(new ErrorModel('数据获取失败'))
     }
   })
 });
@@ -157,8 +161,8 @@ router.post('/updateWeb', function (req, res, next) {
 
 //添加网站
 router.post('/addSite', function (req, res, next) {
-  const { siteName, siteUrl, websiteId } = req.body
-  const result = addSite(siteName, siteUrl, websiteId)
+  const { siteName, siteUrl, websiteId,siteDescribe } = req.body
+  const result = addSite(siteName, siteUrl, websiteId,siteDescribe)
   return result.then((data) => {
     if (data) {
       res.json(new SuccessModel())
@@ -184,8 +188,8 @@ router.post('/delSite', function (req, res, next) {
 
 //修改网站
 router.post('/updateSite', function (req, res, next) {
-  const { siteId, siteName, siteUrl } = req.body
-  const result = updateSite(siteId, siteName, siteUrl)
+  const { siteId, siteName, siteUrl,siteDescribe } = req.body
+  const result = updateSite(siteId, siteName, siteUrl,siteDescribe)
   return result.then((data) => {
     if (data) {
       res.json(new SuccessModel())
