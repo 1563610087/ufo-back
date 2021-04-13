@@ -3,10 +3,10 @@ const mysql = require('mysql')
 
 //创建链接对象
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'sh-cynosdbmysql-grp-f1vualkg.sql.tencentcdb.com',
   user: 'root',
-  password: '123456',
-  port: '3306',
+  password: 'yaosheng@123',
+  port: '24842',
   database: 'ufo-nav'
 })
 

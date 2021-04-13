@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 var debug = require('debug')('node-http:server');
 var http = require('http');
 
@@ -24,10 +24,14 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+ if (process.env.SERVERLESS) {
+  module.exports = server;
+} else {
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
