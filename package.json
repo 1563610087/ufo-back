@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node sls.js",
-    "dev": "node-dev ./sls.js"
+    "start": "node ./http/http.js",
+    "dev": "node-dev ./http/http.js",
+    "deploy":"serverless deploy"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
