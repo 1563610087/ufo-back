@@ -1,6 +1,6 @@
 //该文件是写接口和数据库交互的逻辑
 const { exec } = require('../database/mysql.js')
-
+const {getWebIcon} = require('../common/utils')
 //获取所有网站数据
 const allSites = () => {
     //写SQL语句
@@ -109,6 +109,16 @@ const updateSite = (siteId, siteName, siteUrl,siteDescribe) => {
         return false
     })
 }
+const getIcon = (website) => {
+    let url='https://www.runoob.com/'
+    return getWebIcon(url).then(data=>{
+        return data
+    },err=>{
+        return false
+    })
+}
+//获取网站图标
+
 module.exports = {
     allSites,
     addClass,
@@ -119,5 +129,6 @@ module.exports = {
     updateWeb,
     addSite,
     delSite,
-    updateSite
+    updateSite,
+    getIcon
 }

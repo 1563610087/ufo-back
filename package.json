@@ -5,9 +5,11 @@
   "scripts": {
     "start": "node ./http/http.js",
     "dev": "node-dev ./http/http.js",
-    "deploy":"serverless deploy"
+    "deploy": "serverless deploy"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.9",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",

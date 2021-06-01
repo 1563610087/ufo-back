@@ -3,8 +3,8 @@ var router = express.Router();
 const {
   allSites, addClass, delClass,
   updateClass, addWeb, delWeb,
-  updateWeb, addSite, delSite, updateSite
-} = require('../controller/websites')
+  updateWeb, addSite, delSite, updateSite,getIcon
+} = require('../dao/websites')
 const { SuccessModel, ErrorModel } = require('../model/resModel.js')
 
 //获取网站数据
@@ -195,6 +195,18 @@ router.post('/updateSite', function (req, res, next) {
       res.json(new SuccessModel())
     } else {
       res.json(new ErrorModel('更新失败'))
+    }
+  })
+});
+
+//爬取网站icon
+router.get('/getIcon', function (req, res, next) {
+  const result = getIcon()
+  return result.then((data) => {
+    if (data) {
+      res.json(new SuccessModel(data))
+    } else {
+      res.json(new ErrorModel('获取图标失败'))
     }
   })
 });

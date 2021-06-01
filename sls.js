@@ -10,6 +10,13 @@ var sitesRouter= require('./routes/websites');
 
 var app = express();
 
+//配置cors跨域资源共享
+app.all('*',function(req,res,next){
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods', '*',); 
+  res.setHeader('Access-Control-Allow-Headers', '*',);
+  next();
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
