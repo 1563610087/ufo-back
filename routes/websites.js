@@ -156,13 +156,15 @@ router.post('/updateWeb', function (req, res, next) {
     } else {
       res.json(new ErrorModel('更新失败'))
     }
+  }).catch(err=>{
+    res.json(new ErrorModel('数据库错误'))
   })
 });
 
 //添加网站
 router.post('/addSite', function (req, res, next) {
-  const { siteName, siteUrl, websiteId,siteDescribe } = req.body
-  const result = addSite(siteName, siteUrl, websiteId,siteDescribe)
+  const { siteName, siteUrl, websiteId,siteDescribe,iconUrl } = req.body
+  const result = addSite(siteName, siteUrl, websiteId,siteDescribe,iconUrl)
   return result.then((data) => {
     if (data) {
       res.json(new SuccessModel())
@@ -188,8 +190,8 @@ router.post('/delSite', function (req, res, next) {
 
 //修改网站
 router.post('/updateSite', function (req, res, next) {
-  const { siteId, siteName, siteUrl,siteDescribe } = req.body
-  const result = updateSite(siteId, siteName, siteUrl,siteDescribe)
+  const { siteId, siteName, siteUrl,siteDescribe,iconUrl } = req.body
+  const result = updateSite(siteId, siteName, siteUrl,siteDescribe,iconUrl)
   return result.then((data) => {
     if (data) {
       res.json(new SuccessModel())
@@ -200,14 +202,17 @@ router.post('/updateSite', function (req, res, next) {
 });
 
 //爬取网站icon
-router.get('/getIcon', function (req, res, next) {
-  const result = getIcon()
+router.post('/getIcon', function (req, res, next) {
+  const siteUrl=req.body.siteUrl
+  const result = getIcon(siteUrl)
   return result.then((data) => {
     if (data) {
-      res.json(new SuccessModel(data))
+      res.send(new SuccessModel({iconUrl:data}))
     } else {
       res.json(new ErrorModel('获取图标失败'))
     }
+  }).catch(err=>{
+    console.log(err)
   })
 });
 module.exports = router;

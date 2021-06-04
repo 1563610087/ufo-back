@@ -79,8 +79,9 @@ const updateWeb = (webName, websiteId) => {
 }
 
 //添加网站
-const addSite = (siteName, siteUrl, websiteId,siteDescribe) => {
-    var sql = `insert into website_3 (site_name,site_url,website_id,site_describe) values ('${siteName}','${siteUrl}','${websiteId}','${siteDescribe}')`
+const addSite = (siteName, siteUrl, websiteId,siteDescribe,iconUrl) => {
+    
+    var sql = `insert into website_3 (site_name,site_url,website_id,site_describe,icon_url) values ('${siteName}','${siteUrl}','${websiteId}','${siteDescribe}','${iconUrl}')`
 
     return exec(sql).then((data) => {
         if (data.affectedRows > 0) {
@@ -100,18 +101,21 @@ const delSite = (siteId) => {
     })
 }
 //更新网站
-const updateSite = (siteId, siteName, siteUrl,siteDescribe) => {
-    var sql = `update website_3 set site_name='${siteName}', site_url='${siteUrl}', site_describe='${siteDescribe}'where site_id=${siteId}`
+const updateSite = (siteId, siteName, siteUrl,siteDescribe,iconUrl) => {
+    console.log(iconUrl)
+    var sql = `update website_3 set site_name='${siteName}', site_url='${siteUrl}', site_describe='${siteDescribe}', icon_url='${iconUrl}'where site_id=${siteId}`
     return exec(sql).then((data) => {
         if (data.affectedRows > 0) {
             return true
         }
         return false
+    },err=>{
+        console.log(err)
+        return false
     })
 }
-const getIcon = (website) => {
-    let url='https://www.runoob.com/'
-    return getWebIcon(url).then(data=>{
+const getIcon = (siteUrl) => {
+    return getWebIcon(siteUrl).then(data=>{
         return data
     },err=>{
         return false
